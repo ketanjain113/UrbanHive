@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes>
+    <vType id="car" accel="2.6" decel="4.5" length="5" maxSpeed="13.9"/>
+
+    <flow id="ns" type="car" from="A0A1" to="A2A1"
+          begin="0" end="3600" vehsPerHour="500"/>
+    <flow id="sn" type="car" from="A2A1" to="A0A1"
+          begin="0" end="3600" vehsPerHour="400"/>
+    <flow id="ew" type="car" from="A0B0" to="A2B2"
+          begin="0" end="3600" vehsPerHour="450"/>
+    <flow id="we" type="car" from="B0A0" to="B2A2"
+          begin="0" end="3600" vehsPerHour="350"/>
+          
+</routes>
