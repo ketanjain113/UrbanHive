@@ -156,4 +156,34 @@ roads: dict[str, dict[str, object]] = {
         "speed_kmh": 50,
         "congestion": "free",
     },
+    "RD_006": {
+        "name": "Super Corridor Expressway",
+        "coords": [[22.7550, 75.8300], [22.7600, 75.8100], [22.7650, 75.7900]],
+        "speed_kmh": 65,
+        "congestion": "free",
+    },
+    "RD_007": {
+        "name": "MR-10 Arterial Road",
+        "coords": [[22.7523, 75.8890], [22.7600, 75.8700], [22.7680, 75.8500]],
+        "speed_kmh": 44,
+        "congestion": "free",
+    },
+    "RD_008": {
+        "name": "MG Road Central",
+        "coords": [[22.7180, 75.8580], [22.7200, 75.8650], [22.7220, 75.8750]],
+        "speed_kmh": 18,
+        "congestion": "heavy",
+    },
+    "RD_009": {
+        "name": "Ring Road North",
+        "coords": [[22.7500, 75.8500], [22.7520, 75.8700], [22.7550, 75.8900]],
+        "speed_kmh": 36,
+        "congestion": "moderate",
+    },
+    "RD_010": {
+        "name": "Airport Approach Road",
+        "coords": [[22.7250, 75.8050], [22.7280, 75.8200], [22.7300, 75.8350]],
+        "speed_kmh": 52,
+        "congestion": "free",
+    },
 }

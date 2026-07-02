@@ -47,6 +47,30 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# ── Mount YOLO Model Server sub-app ───────────────────────────────────────────
+import sys
+import pathlib
+
+MODEL_DIR = str(pathlib.Path(__file__).resolve().parent.parent / "GreenCorridor" / "Model")
+if MODEL_DIR not in sys.path:
+    sys.path.append(MODEL_DIR)
+
+try:
+    from fastapi_server import app as model_app
+    app.mount("/model", model_app)
+    logger.info("Successfully mounted GreenCorridor YOLO Model sub-app under /model")
+except Exception as e:
+    logger.error("Failed to import or mount GreenCorridor YOLO Model sub-app: %s", e)
+
+@app.on_event("startup")
+def load_yolo_models():
+    try:
+        import fastapi_server
+        fastapi_server.load_model()
+        logger.info("YOLO models loaded successfully in main app startup")
+    except Exception as e:
+        logger.error("Failed to load YOLO models: %s", e)
+
 # ── Pydantic models ───────────────────────────────────────────────────────────
 
 class HealthResponse(BaseModel):
