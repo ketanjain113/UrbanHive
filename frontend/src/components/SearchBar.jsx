@@ -14,27 +14,34 @@ const SearchBar = ({ data, onSelectLocation, isDesktopNav = false }) => {
 
     if (data.infra?.metro?.stations) {
       data.infra.metro.stations.forEach(s => {
-        items.push({ id: `metro_station-${s.id}`, name: s.name, type: 'metro_station', lat: s.lat, lng: s.lng, icon: '🚇', category: 'Metro Station', details: `${s.ridership.toLocaleString()} daily`, data: s });
+        items.push({ id: `metro_station-${s.id}`, name: s.name || 'Metro Station', type: 'metro_station', lat: s.lat || 22.7196, lng: s.lng || 75.8577, icon: '🚇', category: 'Metro Station', details: `${(s.ridership || 0).toLocaleString()} daily`, data: s });
       });
     }
     if (data.infra?.squares) {
       data.infra.squares.forEach(s => {
-        items.push({ id: `famous_location-${s.id}`, name: s.name, type: 'famous_location', lat: s.lat, lng: s.lng, icon: '📍', category: 'Landmark', details: s.congestion_level, data: s });
+        items.push({ id: `famous_location-${s.id}`, name: s.name || 'Landmark', type: 'famous_location', lat: s.lat || 22.7196, lng: s.lng || 75.8577, icon: '📍', category: 'Landmark', details: s.congestion_level || 'Normal', data: s });
       });
     }
     if (data.parking?.lots) {
       data.parking.lots.forEach(l => {
-        items.push({ id: `parking-${l.id}`, name: l.name, type: 'parking', lat: l.lat, lng: l.lng, icon: '🅿️', category: 'Parking', details: `${l.capacity - l.occupied} free`, data: l });
+        items.push({ id: `parking-${l.id}`, name: l.name || 'Parking Lot', type: 'parking', lat: l.lat || 22.7196, lng: l.lng || 75.8577, icon: '🅿️', category: 'Parking', details: `${(l.capacity || 0) - (l.occupied || 0)} free`, data: l });
       });
     }
     if (data.ev?.chargers) {
       data.ev.chargers.forEach(c => {
-        items.push({ id: `ev-${c.id}`, name: c.name, type: 'ev', lat: c.lat, lng: c.lng, icon: '⚡', category: 'EV', details: `${c.load}% load`, data: c });
+        items.push({ id: `ev-${c.id}`, name: c.name || 'EV Station', type: 'ev', lat: c.lat || 22.7196, lng: c.lng || 75.8577, icon: '⚡', category: 'EV', details: `${c.load || 0}% load`, data: c });
       });
     }
     if (data.petrol?.pumps) {
       data.petrol.pumps.forEach(p => {
-        items.push({ id: `petrol-${p.id}`, name: p.name, type: 'petrol', lat: p.lat, lng: p.lng, icon: '⛽', category: 'Fuel', details: `${p.queue} queue`, data: p });
+        items.push({ id: `petrol-${p.id}`, name: p.name || 'Petrol Pump', type: 'petrol', lat: p.lat || 22.7196, lng: p.lng || 75.8577, icon: '⛽', category: 'Fuel', details: `${p.queue || 0} queue`, data: p });
+      });
+    }
+    if (data.traffic?.roads) {
+      data.traffic.roads.forEach(r => {
+        const lat = r.lat ?? r.coords?.[0]?.[0] ?? 22.7196;
+        const lng = r.lng ?? r.coords?.[0]?.[1] ?? 75.8577;
+        items.push({ id: `traffic-${r.id}`, name: r.name || 'Road Network', type: 'traffic', lat, lng, icon: '🚦', category: 'Road Network', details: `${r.speed || 0} km/h (${r.status || 'flowing'})`, data: r });
       });
     }
     return items;
@@ -54,9 +61,11 @@ const SearchBar = ({ data, onSelectLocation, isDesktopNav = false }) => {
   useEffect(() => {
     if (!query.trim()) { setResults([]); return; }
     const filtered = getSearchableItems().filter(item =>
-      item.name.toLowerCase().includes(query.toLowerCase())
+      item.name?.toLowerCase().includes(query.toLowerCase()) ||
+      item.category?.toLowerCase().includes(query.toLowerCase()) ||
+      item.details?.toLowerCase().includes(query.toLowerCase())
     );
-    setResults(filtered.slice(0, 5));
+    setResults(filtered.slice(0, 8));
   }, [query, data]);
 
   const handleSelect = (item) => {

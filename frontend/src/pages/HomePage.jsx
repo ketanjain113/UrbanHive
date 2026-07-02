@@ -39,7 +39,7 @@ function HomePage() {
     setMapCenter([item.lat, item.lng]);
     setMapZoom(14);
 
-    const layerMapping = { metro_station: 'infra', famous_location: 'infra', parking: 'parking', ev: 'ev', petrol: 'petrol' };
+    const layerMapping = { metro_station: 'infra', famous_location: 'infra', parking: 'parking', ev: 'ev', petrol: 'petrol', traffic: 'traffic' };
     const targetLayer = layerMapping[item.type];
     if (targetLayer && !activeLayers[targetLayer]) {
       setActiveLayers(prev => ({ ...prev, [targetLayer]: true }));
@@ -113,6 +113,8 @@ function HomePage() {
           onFeatureClick={handleFeatureClick}
           mapCenter={mapCenter}
           mapZoom={mapZoom}
+          onZoomEnd={setMapZoom}
+          mapStyle={mapStyle}
         ></UrbanHiveMap>
         <SidePanel selectedFeature={selectedFeature} onClose={closeSidePanel} emergencyCorridor={emergencyCorridor} onDeactivate={deactivateEmergency}></SidePanel>
       </div>

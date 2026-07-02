@@ -53,13 +53,13 @@ const MapController = ({ center, zoom, onZoomEnd }) => {
 const tileUrls = {
   light: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
   dark: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-  satellite: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
+  satellite: 'https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}'
 };
 
 const tileAttributions = {
   light: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
   dark: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-  satellite: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+  satellite: 'Tiles &copy; <a href="https://maps.google.com">Google</a> &mdash; Imagery: Maxar, Landsat, Copernicus'
 };
 
 const UrbanHiveMap = ({ 

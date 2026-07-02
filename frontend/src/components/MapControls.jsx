@@ -8,6 +8,7 @@ import {
   Train,
   Zap,
   Layers,
+  Fuel,
   ChevronDown
 } from 'lucide-react';
 
@@ -26,7 +27,7 @@ const MapControls = ({
   const isSatellite = currentStyle === 'satellite';
   const leftCardThumbnail = isSatellite
     ? 'https://a.basemaps.cartocdn.com/light_all/13/4683/2781.png'
-    : 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/13/2781/4683.png';
+    : 'https://mt1.google.com/vt/lyrs=y&x=5891&y=3541&z=13';
   const leftCardLabel = isSatellite ? 'Map' : 'Satellite';
 
   const layerItems = [
@@ -34,7 +35,8 @@ const MapControls = ({
     { id: 'traffic', label: 'Traffic', icon: Activity, active: activeLayers.traffic, action: () => toggleLayer('traffic') },
     { id: 'transit', label: 'Transit', icon: Train, active: activeLayers.infra, action: () => toggleLayer('infra') },
     { id: 'ev', label: 'EV', icon: Zap, active: activeLayers.ev, action: () => toggleLayer('ev') },
-    { id: 'parking', label: 'More', icon: Layers, active: activeLayers.parking, action: () => toggleLayer('parking') },
+    { id: 'parking', label: 'Parking', icon: Layers, active: activeLayers.parking, action: () => toggleLayer('parking') },
+    { id: 'petrol', label: 'Petrol', icon: Fuel, active: activeLayers.petrol, action: () => toggleLayer('petrol') },
   ];
 
   return (

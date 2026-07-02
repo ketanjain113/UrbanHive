@@ -2,7 +2,7 @@ import React from 'react';
 import { X, Navigation, Train, MapPin, Landmark, Award, Shield, Users, Wind, Activity, Zap, Compass, CheckCircle2 } from 'lucide-react';
 import { LineChart, Line, ResponsiveContainer, YAxis, BarChart, Bar, XAxis, Cell } from 'recharts';
 
-const SidePanel = ({ feature, onClose, onDeactivateEmergency }) => {
+const SidePanel = ({ selectedFeature, feature = selectedFeature, onClose, onDeactivate, onDeactivateEmergency = onDeactivate }) => {
   if (!feature) return null;
 
   const handleNavigate = () => {
