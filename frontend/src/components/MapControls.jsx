@@ -80,10 +80,10 @@ const MapControls = ({
         {!isExpanded ? (
           <button
             onClick={() => setIsExpanded(true)}
-            className="w-[52px] h-[52px] md:w-[60px] md:h-[60px] rounded-2xl bg-white/40 backdrop-blur-3xl shadow-[0_8px_32px_rgba(0,0,0,0.1)] border border-white/40 flex flex-col items-center justify-center text-gray-600 hover:text-gray-900 active:scale-95 transition-all duration-200"
+            className="w-[52px] h-[52px] md:w-[60px] md:h-[60px] rounded-2xl bg-white/95 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.15)] border border-gray-100 flex flex-col items-center justify-center text-gray-700 hover:text-gray-900 active:scale-95 transition-all duration-200"
             title="Map Layers"
           >
-            <Layers size={22} strokeWidth={2.2} className="mb-0.5" />
+            <Layers size={22} strokeWidth={2.5} className="mb-0.5" />
             <span className="text-[9px] md:text-[10px] font-bold">Layers</span>
           </button>
         ) : (
@@ -91,47 +91,47 @@ const MapControls = ({
             {/* Map Type Card */}
             <button
               onClick={() => onStyleChange(isSatellite ? 'light' : 'satellite')}
-              className="relative w-[52px] h-[52px] md:w-[60px] md:h-[60px] rounded-2xl overflow-hidden border-2 border-white/60 shadow-[0_4px_20px_rgba(0,0,0,0.1)] group transition-all duration-150 active:scale-95 shrink-0 animate-fade-in"
+              className="relative w-[52px] h-[52px] md:w-[60px] md:h-[60px] rounded-2xl overflow-hidden border-2 border-white shadow-[0_8px_24px_rgba(0,0,0,0.15)] group transition-all duration-150 active:scale-95 shrink-0 animate-fade-in bg-gray-200"
               title={`Switch to ${leftCardLabel}`}
             >
               <img
                 src={leftCardThumbnail}
                 alt={leftCardLabel}
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-300 z-0"
                 onError={(e) => { e.target.style.display = 'none'; }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end justify-center pb-1.5">
-                <span className="text-[9px] md:text-[10px] text-white font-bold uppercase tracking-wider">{leftCardLabel}</span>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end justify-center pb-1.5 z-10">
+                <span className="text-[9px] md:text-[10px] text-white font-extrabold uppercase tracking-widest drop-shadow-md">{leftCardLabel}</span>
               </div>
             </button>
 
             {/* Layer Icons Column */}
-            <div className="flex flex-col items-center bg-white/40 backdrop-blur-3xl border border-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.1)] rounded-2xl p-1.5 md:p-2 gap-1.5 w-[52px] md:w-[60px] animate-fade-in">
+            <div className="flex flex-col items-center bg-white/95 backdrop-blur-xl border border-gray-100 shadow-[0_8px_32px_rgba(0,0,0,0.15)] rounded-2xl p-1.5 md:p-2 gap-1.5 w-[52px] md:w-[60px] animate-fade-in">
               {layerItems.map(({ id, label, icon: Icon, active, action }) => (
                 <button
                   key={id}
                   onClick={action}
-                  className="flex flex-col items-center justify-center w-full aspect-square rounded-xl hover:bg-black/5 active:bg-black/10 transition-all duration-150 group"
+                  className="flex flex-col items-center justify-center w-full aspect-square rounded-xl hover:bg-gray-100 active:bg-gray-200 transition-all duration-150 group"
                   title={label}
                 >
                   <div className={`w-8 h-8 md:w-9 md:h-9 rounded-xl flex items-center justify-center transition-all duration-200 ${
                     active
-                      ? 'bg-[#059669] text-white shadow-md shadow-[#059669]/20'
-                      : 'bg-black/5 text-gray-500 group-hover:text-gray-700'
+                      ? 'bg-[#059669] text-white shadow-md shadow-[#059669]/30'
+                      : 'bg-gray-100 text-gray-600 group-hover:bg-gray-200 group-hover:text-gray-900'
                   }`}>
-                    <Icon size={16} strokeWidth={2.2} />
+                    <Icon size={16} strokeWidth={2.5} />
                   </div>
                   <span className={`text-[8px] md:text-[9px] font-bold mt-1 leading-none transition-colors ${
-                    active ? 'text-[#059669]' : 'text-gray-500 group-hover:text-gray-700'
+                    active ? 'text-[#059669]' : 'text-gray-600 group-hover:text-gray-900'
                   }`}>{label}</span>
                 </button>
               ))}
               
-              <div className="w-8 h-px bg-black/10 my-0.5"></div>
+              <div className="w-8 h-[2px] bg-gray-100 my-1 rounded-full"></div>
               
               <button
                 onClick={() => setIsExpanded(false)}
-                className="flex flex-col items-center justify-center w-full aspect-square rounded-xl hover:bg-black/5 active:bg-black/10 transition-all duration-150 text-gray-500 hover:text-gray-700"
+                className="flex flex-col items-center justify-center w-full aspect-square rounded-xl hover:bg-gray-100 active:bg-gray-200 transition-all duration-150 text-gray-500 hover:text-gray-800"
                 title="Minimize"
               >
                 <ChevronDown size={20} strokeWidth={2.5} />
