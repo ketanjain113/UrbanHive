@@ -103,8 +103,12 @@ function HomePage() {
 
   return (
     <div className="flex flex-col h-screen w-screen overflow-hidden bg-[#F5F5F7]">
-      <TopBar data={data}></TopBar>
-      <div className="flex-1 flex overflow-hidden">
+      <TopBar data={data}>
+        <div className="hidden md:block w-[380px]">
+          <SearchBar onSelectLocation={handleSelectLocation} isDesktopNav={true}></SearchBar>
+        </div>
+      </TopBar>
+      <div className="flex-1 flex overflow-hidden relative">
         <UrbanHiveMap 
           data={data} 
           activeLayers={activeLayers} 
@@ -117,9 +121,13 @@ function HomePage() {
           mapStyle={mapStyle}
         ></UrbanHiveMap>
         <SidePanel selectedFeature={selectedFeature} onClose={closeSidePanel} emergencyCorridor={emergencyCorridor} onDeactivate={deactivateEmergency}></SidePanel>
+        
+        {/* Mobile Search Bar */}
+        <div className="md:hidden">
+          <SearchBar onSelectLocation={handleSelectLocation} isDesktopNav={false}></SearchBar>
+        </div>
       </div>
       <StatusBar data={data} connected={connected} alerts={alerts}></StatusBar>
-      <SearchBar onSelectLocation={handleSelectLocation}></SearchBar>
       <MapControls
         currentZoom={mapZoom}
         onZoomChange={setMapZoom}
