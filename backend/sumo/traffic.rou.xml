@@ -1,14 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <routes>
-    <vType id="car" accel="2.6" decel="4.5" length="5" maxSpeed="13.9"/>
+    <vType id="car" accel="1.8" decel="3.5" length="8" minGap="3.5" 
+           maxSpeed="8.0" sigma="0.3" color="0.2,0.8,1.0"
+           departLane="best" departSpeed="0" latAlignment="center"/>
 
-    <flow id="ns" type="car" from="A0A1" to="A2A1"
-          begin="0" end="3600" vehsPerHour="500"/>
-    <flow id="sn" type="car" from="A2A1" to="A0A1"
-          begin="0" end="3600" vehsPerHour="400"/>
-    <flow id="ew" type="car" from="A0B0" to="A2B2"
-          begin="0" end="3600" vehsPerHour="450"/>
-    <flow id="we" type="car" from="B0A0" to="B2A2"
-          begin="0" end="3600" vehsPerHour="350"/>
-          
+    <vType id="car2" accel="1.8" decel="3.5" length="8" minGap="3.5"
+           maxSpeed="8.0" sigma="0.3" color="1.0,0.6,0.1"
+           departLane="best" departSpeed="0" latAlignment="center"/>
+
+    <vType id="car3" accel="1.8" decel="3.5" length="8" minGap="3.5"
+           maxSpeed="8.0" sigma="0.3" color="0.2,1.0,0.4"
+           departLane="best" departSpeed="0" latAlignment="center"/>
+
+    <flow id="ns" type="car"  from="A0A1" to="A2A1"
+          begin="0" end="3600" vehsPerHour="80"  departLane="best" departSpeed="0"/>
+    <flow id="sn" type="car2" from="A2A1" to="A0A1"
+          begin="0" end="3600" vehsPerHour="60"  departLane="best" departSpeed="0"/>
+    <flow id="ew" type="car3" from="A0B0" to="A2B2"
+          begin="0" end="3600" vehsPerHour="70"  departLane="best" departSpeed="0"/>
+    <flow id="we" type="car"  from="B0A0" to="B2A2"
+          begin="0" end="3600" vehsPerHour="50"  departLane="best" departSpeed="0"/>
 </routes>

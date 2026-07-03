@@ -387,24 +387,20 @@ function GreenCorridorPage() {
   const eta = Math.max((currentRoute.points.length - vehicleIndex) * 1.5, 0).toFixed(1);
 
   return (
-    <div className="h-screen flex flex-col bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden">
+    <div className="h-screen flex flex-col bg-[#F5F5F7] text-gray-900 overflow-hidden font-sans">
       {/* Header */}
-      <div className="flex items-center justify-between p-4 bg-gradient-to-r from-green-600 to-emerald-600 border-b border-green-500/30 shadow-lg">
-        <div className="flex items-center gap-3">
+      <div className="flex items-center justify-between p-4 bg-white/40 backdrop-blur-3xl border-b border-gray-200 z-10 relative">
+        <div className="flex items-center gap-4">
           <button
             onClick={() => navigate("/")}
-            className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors flex items-center gap-2 font-semibold"
+            className="px-4 py-2 rounded-xl bg-white text-gray-700 hover:bg-gray-50 transition-colors flex items-center gap-2 font-semibold shadow-sm border border-gray-200 text-sm"
           >
             ← Back to Map
           </button>
-          <h1 className="text-2xl font-bold">
+          <h1 className="text-xl font-bold text-gray-900 tracking-tight">
             🚑 Emergency Corridor
             {emergencyData && ` - ${emergencyData.vehicle_id}`}
           </h1>
-        </div>
-        <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full ${socketConnected ? 'bg-green-500/20 text-green-300' : 'bg-red-500/20 text-red-300'}`}>
-          <div className={`w-2 h-2 rounded-full ${socketConnected ? 'bg-green-400' : 'bg-red-400'} animate-pulse`}></div>
-          {socketConnected ? "Connected" : "Disconnected"}
         </div>
       </div>
 
@@ -412,17 +408,17 @@ function GreenCorridorPage() {
       <div className="flex-1 flex gap-4 p-4 overflow-hidden">
         {/* Map and Model Output */}
         <div className="flex-1 flex flex-col gap-4 overflow-hidden">
-          <div ref={mapElementRef} className="flex-1 rounded-xl border border-green-500/30 overflow-hidden shadow-2xl" />
+          <div ref={mapElementRef} className="flex-1 rounded-2xl border border-gray-200 overflow-hidden shadow-sm bg-white" />
           
           {/* Progress Bar */}
-          <div className="bg-slate-800/60 border border-green-500/20 rounded-lg p-4 backdrop-blur">
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4">
             <div className="flex justify-between items-center mb-2">
-              <span className="text-sm font-semibold text-green-300">Route Progress</span>
-              <span className="text-sm font-mono text-green-400">{progress}%</span>
+              <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Route Progress</span>
+              <span className="text-sm font-semibold text-emerald-600">{progress}%</span>
             </div>
-            <div className="w-full h-2 bg-slate-700 rounded-full overflow-hidden">
+            <div className="w-full h-2.5 bg-gray-100 rounded-full overflow-hidden">
               <div
-                className="h-full bg-gradient-to-r from-green-500 to-emerald-400 transition-all duration-300"
+                className="h-full bg-[#059669] transition-all duration-300 rounded-full"
                 style={{ width: `${progress}%` }}
               />
             </div>
@@ -430,137 +426,148 @@ function GreenCorridorPage() {
 
           {/* AI Model Output */}
           {(webcamFrame || videoOutput) && (
-            <div className="bg-slate-800/60 border border-yellow-500/30 rounded-lg overflow-hidden shadow-lg max-h-64">
-              <div className="text-xs font-semibold text-yellow-300 p-2 border-b border-yellow-500/20">
+            <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm max-h-64 flex flex-col">
+              <div className="text-xs font-bold text-gray-500 uppercase tracking-wider p-3 border-b border-gray-100 bg-gray-50/50">
                 🤖 AI Detection Output
               </div>
-              {webcamFrame && (
-                <img src={webcamFrame} alt="Webcam Detection" className="w-full h-full object-contain" />
-              )}
-              {videoOutput && (
-                <video src={videoOutput} controls className="w-full h-full object-contain" />
-              )}
+              <div className="p-2 bg-black flex-1 min-h-0 flex justify-center items-center">
+                  {webcamFrame && (
+                    <img src={webcamFrame} alt="Webcam Detection" className="max-w-full max-h-full object-contain rounded" />
+                  )}
+                  {videoOutput && (
+                    <video src={videoOutput} controls className="max-w-full max-h-full object-contain rounded" />
+                  )}
+              </div>
             </div>
           )}
         </div>
 
         {/* Right Panel */}
-        <div className="w-96 flex flex-col gap-4 overflow-y-auto">
+        <div className="w-96 flex flex-col gap-4 overflow-y-auto pr-1 pb-4 custom-scrollbar">
           {/* Emergency Info */}
           {emergencyData && (
-            <div className="bg-slate-800/60 border border-green-500/20 rounded-lg p-4 backdrop-blur">
-              <h3 className="font-bold text-lg mb-3 text-green-300">Emergency Details</h3>
-              <div className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-gray-400">Vehicle ID:</span>
-                  <span className="font-mono font-semibold">{emergencyData.vehicle_id}</span>
+            <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
+              <h3 className="text-sm font-bold text-gray-900 mb-4 tracking-tight">Emergency Details</h3>
+              <div className="space-y-3 text-sm">
+                <div className="flex justify-between items-center pb-2 border-b border-gray-50">
+                  <span className="text-gray-500 font-medium">Vehicle ID</span>
+                  <span className="font-mono font-bold text-gray-900 bg-gray-100 px-2 py-0.5 rounded">{emergencyData.vehicle_id}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-400">Type:</span>
-                  <span className="font-semibold">{emergencyData.type}</span>
+                <div className="flex justify-between items-center pb-2 border-b border-gray-50">
+                  <span className="text-gray-500 font-medium">Type</span>
+                  <span className="font-semibold text-gray-900">{emergencyData.type}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-400">From:</span>
-                  <span className="text-right text-xs text-gray-300">{emergencyData.from_location}</span>
+                <div className="flex flex-col gap-1 pb-2 border-b border-gray-50">
+                  <span className="text-gray-500 font-medium">From</span>
+                  <span className="text-xs font-semibold text-gray-700">{emergencyData.from_location}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-400">To:</span>
-                  <span className="text-right text-xs text-gray-300">{emergencyData.to_location}</span>
+                <div className="flex flex-col gap-1">
+                  <span className="text-gray-500 font-medium">To</span>
+                  <span className="text-xs font-semibold text-gray-700">{emergencyData.to_location}</span>
                 </div>
               </div>
             </div>
           )}
 
           {/* Status Card */}
-          <div className="bg-slate-800/60 border border-green-500/20 rounded-lg p-4 backdrop-blur">
-            <h3 className="font-bold text-lg mb-3 text-green-300">Status</h3>
-            <div className="space-y-3">
+          <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
+            <h3 className="text-sm font-bold text-gray-900 mb-4 tracking-tight">Status</h3>
+            <div className="space-y-4">
               <div>
-                <div className="text-2xl font-bold text-green-400 mb-1">{eta} min</div>
-                <div className="text-sm text-gray-400">Estimated Time to Destination</div>
+                <div className="text-3xl font-black text-[#059669] tracking-tighter mb-1">{eta} <span className="text-lg font-bold text-gray-400">min</span></div>
+                <div className="text-xs font-medium text-gray-500 uppercase tracking-wide">Estimated Time to Destination</div>
               </div>
-              <div className="flex items-center gap-2">
-                <div className={`w-3 h-3 rounded-full ${isActive ? 'bg-green-400 animate-pulse' : 'bg-red-400'}`}></div>
-                <span className="text-sm font-semibold">{isActive ? "Route Active" : "Route Complete"}</span>
+              <div className="flex items-center gap-2 bg-gray-50 p-2.5 rounded-xl border border-gray-100">
+                <div className={`w-2.5 h-2.5 rounded-full ${isActive ? 'bg-[#059669] animate-pulse shadow-[0_0_8px_rgba(5,150,105,0.5)]' : 'bg-gray-400'}`}></div>
+                <span className="text-sm font-bold text-gray-700">{isActive ? "Route Active" : "Route Complete"}</span>
               </div>
             </div>
           </div>
 
           {/* Webcam Controls */}
-          <div className="bg-slate-800/60 border border-yellow-500/20 rounded-lg p-4 backdrop-blur">
-            <h3 className="font-bold text-lg mb-3 text-yellow-300">🎥 Live Webcam Detection</h3>
+          <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
+            <h3 className="text-sm font-bold text-gray-900 mb-4 tracking-tight">🎥 Live Webcam Detection</h3>
             <div className="space-y-3">
               <button
                 onClick={webcamRunning ? stopWebcam : startWebcam}
                 disabled={webcamConnecting}
-                className={`w-full py-2 px-3 rounded-lg font-semibold transition-all ${
+                className={`w-full py-2.5 px-4 rounded-xl font-bold transition-all shadow-sm ${
                   webcamRunning
-                    ? "bg-red-600 hover:bg-red-700 text-white"
-                    : "bg-yellow-600 hover:bg-yellow-700 text-white disabled:bg-gray-500"
+                    ? "bg-red-50 hover:bg-red-100 text-red-600 border border-red-200"
+                    : "bg-blue-600 hover:bg-blue-700 text-white shadow-md disabled:bg-gray-200 disabled:text-gray-400"
                 }`}
               >
                 {webcamConnecting ? "Connecting..." : webcamRunning ? "Stop Webcam" : "Start Webcam"}
               </button>
-              {webcamError && <div className="text-xs text-red-400 bg-red-500/10 p-2 rounded">{webcamError}</div>}
-              <video
-                ref={webcamVideoRef}
-                autoPlay
-                playsInline
-                className="w-full h-32 bg-black rounded border border-yellow-500/20"
-              />
+              {webcamError && <div className="text-xs text-red-600 bg-red-50 p-2.5 rounded-xl border border-red-100 font-medium">{webcamError}</div>}
+              <div className="rounded-xl overflow-hidden border border-gray-200 bg-gray-900">
+                  <video
+                    ref={webcamVideoRef}
+                    autoPlay
+                    playsInline
+                    className="w-full h-36 object-cover"
+                  />
+              </div>
               <canvas ref={webcamCanvasRef} className="hidden" width="640" height="480" />
             </div>
           </div>
 
           {/* Video Upload */}
-          <div className="bg-slate-800/60 border border-blue-500/20 rounded-lg p-4 backdrop-blur">
-            <h3 className="font-bold text-lg mb-3 text-blue-300">📹 Video Upload Detection</h3>
-            <div className="space-y-3">
+          <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
+            <h3 className="text-sm font-bold text-gray-900 mb-4 tracking-tight">📹 Video Upload Detection</h3>
+            <div className="space-y-4">
               <input
                 ref={videoFileInputRef}
                 type="file"
                 accept="video/*"
                 onChange={handleVideoUpload}
-                className="text-xs text-gray-400 file:mr-2 file:py-1 file:px-2 file:rounded file:bg-blue-600 file:text-white file:cursor-pointer"
+                className="block w-full text-sm text-gray-500
+                  file:mr-4 file:py-2.5 file:px-4
+                  file:rounded-xl file:border-0
+                  file:text-sm file:font-bold
+                  file:bg-indigo-50 file:text-indigo-600
+                  hover:file:bg-indigo-100 transition-colors"
               />
               {videoPreview && (
-                <video src={videoPreview} className="w-full h-32 bg-black rounded border border-blue-500/20" />
+                <div className="rounded-xl overflow-hidden border border-gray-200 bg-gray-900">
+                    <video src={videoPreview} className="w-full h-36 object-cover" />
+                </div>
               )}
               <button
                 onClick={processVideo}
                 disabled={!videoFile || videoPredicting}
-                className={`w-full py-2 px-3 rounded-lg font-semibold transition-all ${
+                className={`w-full py-2.5 px-4 rounded-xl font-bold transition-all shadow-sm ${
                   videoPredicting
-                    ? "bg-gray-500 text-gray-300"
-                    : "bg-blue-600 hover:bg-blue-700 text-white disabled:bg-gray-500"
+                    ? "bg-gray-100 text-gray-400 border border-gray-200"
+                    : "bg-indigo-600 hover:bg-indigo-700 text-white shadow-md disabled:bg-gray-200 disabled:text-gray-400"
                 }`}
               >
-                {videoPredicting ? "Processing..." : "Process Video with YOLO"}
+                {videoPredicting ? "Processing..." : "Process Video"}
               </button>
               {videoPredictError && (
-                <div className="text-xs text-red-400 bg-red-500/10 p-2 rounded">{videoPredictError}</div>
+                <div className="text-xs text-red-600 bg-red-50 p-2.5 rounded-xl border border-red-100 font-medium">{videoPredictError}</div>
               )}
             </div>
           </div>
 
           {/* Traffic Signals */}
-          <div className="bg-slate-800/60 border border-green-500/20 rounded-lg p-4 backdrop-blur">
-            <h3 className="font-bold text-lg mb-3 text-green-300">Traffic Signals</h3>
-            <div className="space-y-2">
+          <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
+            <h3 className="text-sm font-bold text-gray-900 mb-4 tracking-tight">Traffic Signals</h3>
+            <div className="space-y-2.5">
               {currentRoute.intersections.map((intersection) => {
                 const signalState = signals[intersection.id] || "RED";
                 const isPassed = intersection.pointIndex < vehicleIndex;
                 
                 return (
-                  <div key={intersection.id} className="flex items-center justify-between p-2 bg-slate-700/50 rounded-lg border border-slate-600/50">
-                    <span className="font-mono font-semibold text-lg">Intersection {intersection.id}</span>
+                  <div key={intersection.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-xl border border-gray-100">
+                    <span className="font-semibold text-gray-700 text-sm">Intersection {intersection.id}</span>
                     <div className="flex items-center gap-2">
                       <div
-                        className={`w-3 h-3 rounded-full ${
-                          signalState === "GREEN" ? "bg-green-400 shadow-lg shadow-green-500" : "bg-red-400 shadow-lg shadow-red-500"
+                        className={`w-2.5 h-2.5 rounded-full ${
+                          signalState === "GREEN" ? "bg-[#059669] shadow-[0_0_8px_rgba(5,150,105,0.4)]" : "bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.4)]"
                         }`}
                       />
-                      <span className={`text-sm font-bold ${signalState === "GREEN" ? "text-green-300" : "text-red-300"}`}>
+                      <span className={`text-xs font-bold uppercase tracking-wider ${signalState === "GREEN" ? "text-[#059669]" : "text-red-500"}`}>
                         {isPassed ? "✓ PASSED" : signalState}
                       </span>
                     </div>
@@ -571,16 +578,16 @@ function GreenCorridorPage() {
           </div>
 
           {/* Activity Log */}
-          <div className="bg-slate-800/60 border border-green-500/20 rounded-lg p-4 backdrop-blur flex-1 flex flex-col overflow-hidden">
-            <h3 className="font-bold text-lg mb-3 text-green-300">Activity Log</h3>
-            <div className="flex-1 overflow-y-auto space-y-2">
+          <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm flex-1 flex flex-col min-h-[200px]">
+            <h3 className="text-sm font-bold text-gray-900 mb-4 tracking-tight">Activity Log</h3>
+            <div className="flex-1 overflow-y-auto space-y-3 pr-2 custom-scrollbar">
               {logs.length === 0 ? (
-                <p className="text-sm text-gray-500">No events yet...</p>
+                <p className="text-sm text-gray-400 font-medium">No events yet...</p>
               ) : (
                 logs.map((log, idx) => (
-                  <div key={idx} className="text-xs border-l-2 border-green-500/30 pl-2 py-1">
-                    <span className="text-gray-500">{log.time}</span>
-                    <span className="text-gray-300 ml-2">{log.message}</span>
+                  <div key={idx} className="flex gap-3 text-sm">
+                    <span className="text-gray-400 font-mono text-xs mt-0.5">{log.time}</span>
+                    <span className="text-gray-700 font-medium leading-tight">{log.message}</span>
                   </div>
                 ))
               )}

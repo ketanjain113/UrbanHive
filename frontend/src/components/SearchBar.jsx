@@ -86,30 +86,30 @@ const SearchBar = ({ data, onSelectLocation, isDesktopNav = false }) => {
       : "absolute top-4 left-4 right-4 z-[1000] flex flex-col gap-1.5 shadow-2xl rounded-full"
     }>
       {/* Search Input */}
-      <div className={`flex items-center w-full transition-all duration-300 border ${
+      <div className={`flex items-center w-full transition-all duration-300 border transform-gpu ${
         isDesktopNav 
-          ? `h-9 bg-gray-100 rounded-full pl-3 pr-1 ${isFocused ? 'bg-white border-[#059669]/40 ring-2 ring-[#059669]/20 shadow-md' : 'border-transparent hover:bg-gray-200/80'}`
-          : `h-12 bg-white/95 backdrop-blur-xl rounded-full pl-4 pr-1.5 shadow-lg ${isFocused ? 'border-[#059669]/50 shadow-xl ring-2 ring-[#059669]/20' : 'border-gray-200/80'}`
+          ? `h-9 bg-gray-100 rounded-full pl-3 pr-1 ${isFocused ? 'bg-white border-[#059669]/50 ring-[3px] ring-[#059669]/20 shadow-lg scale-[1.02] -translate-y-0.5' : 'border-transparent hover:bg-gray-200/80 hover:shadow-md hover:scale-[1.01]'}`
+          : `h-12 bg-white/95 backdrop-blur-xl rounded-full pl-4 pr-1.5 shadow-lg ${isFocused ? 'border-[#059669]/50 shadow-2xl ring-[4px] ring-[#059669]/20 scale-[1.02] -translate-y-1' : 'border-gray-200/80 hover:shadow-xl hover:scale-[1.01] hover:-translate-y-0.5'}`
       }`}>
-        <Search size={isDesktopNav ? 14 : 16} className={`${isFocused ? 'text-[#059669]' : 'text-gray-400'} shrink-0 mr-2 transition-colors`} strokeWidth={2} />
+        <Search size={isDesktopNav ? 14 : 16} className={`transition-all duration-300 ${isFocused ? 'text-[#059669] scale-110' : 'text-gray-400'} shrink-0 mr-2`} strokeWidth={2} />
         <input
           type="text"
           value={query}
           onChange={(e) => { setQuery(e.target.value); setIsOpen(true); }}
           onFocus={() => { setIsOpen(true); setIsFocused(true); }}
           placeholder="Search places, stations..."
-          className={`flex-1 bg-transparent border-none outline-none text-gray-900 placeholder-gray-400 font-medium pr-2 ${isDesktopNav ? 'text-[12px]' : 'text-[14px]'}`}
+          className={`flex-1 bg-transparent border-none outline-none text-gray-900 placeholder-gray-400 font-medium pr-2 transition-all duration-300 ${isDesktopNav ? 'text-[12px]' : 'text-[14px]'}`}
         />
         <div className="flex items-center gap-1">
           {query && (
-            <button onClick={() => setQuery('')} className={`rounded-full hover:bg-gray-200 flex items-center justify-center text-gray-500 transition-colors ${isDesktopNav ? 'w-6 h-6 mr-0.5' : 'w-8 h-8 mr-1'}`}>
+            <button onClick={() => setQuery('')} className={`rounded-full hover:bg-gray-200 flex items-center justify-center text-gray-500 transition-all hover:text-gray-800 hover:rotate-90 active:scale-75 ${isDesktopNav ? 'w-6 h-6 mr-0.5' : 'w-8 h-8 mr-1'}`}>
               <X size={14} strokeWidth={2.5} />
             </button>
           )}
-          <div className={`w-[1px] bg-gray-200 ${isDesktopNav ? 'h-5 mr-1' : 'h-6 mr-1.5'}`}></div>
+          <div className={`w-[1px] bg-gray-200 transition-all ${isDesktopNav ? 'h-5 mr-1' : 'h-6 mr-1.5'}`}></div>
           <button
             onClick={handleDirections}
-            className={`rounded-full bg-[#059669] hover:bg-[#047857] flex items-center justify-center text-white transition-all duration-200 active:scale-95 shadow-[0_4px_12px_rgba(5,150,105,0.3)] hover:shadow-[0_6px_16px_rgba(5,150,105,0.4)] ${isDesktopNav ? 'w-7 h-7' : 'w-9 h-9'}`}
+            className={`rounded-full bg-[#059669] hover:bg-[#047857] flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:-translate-y-0.5 hover:rotate-12 active:scale-95 shadow-[0_4px_12px_rgba(5,150,105,0.3)] hover:shadow-[0_8px_20px_rgba(5,150,105,0.5)] ${isDesktopNav ? 'w-7 h-7' : 'w-9 h-9'}`}
             title="Directions"
           >
             <Navigation size={isDesktopNav ? 12 : 14} className="rotate-45" strokeWidth={2.5} />
