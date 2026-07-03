@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { activateEmergencyCorridor } from '../api/emergency';
-import { Siren, Flame, ShieldAlert, Plus, MapPin, Navigation, Car, X } from 'lucide-react';
+import { Siren, Flame, ShieldAlert, Ambulance, MapPin, Navigation, Car, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const EmergencyModal = ({ onClose, onActivate }) => {
@@ -44,7 +44,7 @@ const EmergencyModal = ({ onClose, onActivate }) => {
   };
 
   const types = [
-    { id: 'Ambulance', label: 'Medical', icon: Plus },
+    { id: 'Ambulance', label: 'Medical', icon: Ambulance },
     { id: 'Fire Engine', label: 'Fire Force', icon: Flame },
     { id: 'Police', label: 'Cops', icon: ShieldAlert }
   ];
