@@ -141,15 +141,15 @@ function HomePage() {
       {isEmergencyModalOpen && <EmergencyModal onClose={() => setIsEmergencyModalOpen(false)} onActivate={handleEmergencyActivate}></EmergencyModal>}
       <button 
         onClick={() => setIsEmergencyModalOpen(true)}
-        className={`fixed bottom-6 z-[1000] px-4 py-2.5 bg-[#FF3B30] hover:bg-[#FF2D20] text-white rounded-full shadow-lg shadow-red-500/30 flex items-center gap-2 font-bold text-sm tracking-wide transition-all duration-300 hover:shadow-xl hover:shadow-red-500/40 hover:-translate-y-0.5 active:scale-95 ${
+        className={`fixed bottom-6 z-[1000] w-14 h-14 bg-[#FF3B30] hover:bg-[#FF2D20] text-white rounded-full shadow-lg shadow-red-500/30 flex items-center justify-center transition-all duration-300 hover:shadow-xl hover:shadow-red-500/40 hover:-translate-y-0.5 active:scale-95 ${
           selectedFeature ? 'right-6 md:right-[496px]' : 'right-6'
         }`}
+        title="Activate Emergency Corridor"
       >
-        <div className="relative flex items-center justify-center">
-          <span className="absolute w-full h-full bg-white/40 rounded-full animate-ping opacity-75"></span>
-          <Siren size={18} strokeWidth={2.5} />
+        <div className="relative flex items-center justify-center w-full h-full">
+          <span className="absolute w-8 h-8 bg-white/40 rounded-full animate-ping opacity-75"></span>
+          <Siren size={24} strokeWidth={2.5} />
         </div>
-        EMERGENCY
       </button>
     </div>
   );
